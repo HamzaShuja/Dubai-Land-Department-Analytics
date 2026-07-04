@@ -13,9 +13,11 @@ from realestate.translation import developer_display, project_type_display, is_k
 
 style.bootstrap_page(
     "Project Delivery Predictor",
-    "Predicts how much of a project should be built by today from the developer's "
-    "track record and the project's attributes, then rates delivery risk against "
-    "its schedule. Explained with SHAP.",
+    "Estimates what share of a project's construction is finished as of today, "
+    "based on the developer's delivery track record and the project's size, type "
+    "and timeline. The estimate is compared with projects launched the same year "
+    "to judge whether this one is on pace or falling behind — and SHAP shows "
+    "exactly what drove the number.",
 )
 
 FEATURE_LABELS = {
@@ -56,6 +58,10 @@ for d in dev_counts.index:
 ptypes = reference.get("type_categories", []) or sorted(pr["project_type"].dropna().unique())
 ptype_labels = {project_type_display(t): t for t in ptypes}
 
+st.caption("Pick a developer and describe a project. You get: **how much of it "
+           "should be built by today**, and whether that is ahead of or behind other "
+           "projects launched the same year.")
+
 with st.form("predict"):
     c1, c2 = st.columns(2)
     dev_label = c1.selectbox("Developer", list(dev_labels.keys()))
@@ -87,14 +93,29 @@ if submitted:
     explainer = shap.TreeExplainer(model.booster)
     shap_vals = explainer.shap_values(X[model.features])[0]
 
+    # Plain-English takeaway
+    if peer == peer:  # cohort median available
+        if "Early stage" in band:
+            takeaway = (f"Too new to judge — projects launched in {start_year} have "
+                        f"barely broken ground (≈{peer:.0f}% built on average).")
+        elif pred >= peer * 0.9:
+            takeaway = (f"On pace — a typical {start_year} launch is ≈{peer:.0f}% built "
+                        f"by now, and this project is estimated at {pred:.0f}%.")
+        else:
+            takeaway = (f"Falling behind — a typical {start_year} launch is ≈{peer:.0f}% "
+                        f"built by now, but this project is estimated at only {pred:.0f}%.")
+    else:
+        takeaway = "No same-year projects to compare against; risk band uses absolute thresholds."
+
     res, expl = st.columns([1, 2])
     with res:
         st.markdown(
             f'<div class="re-result"><div class="lbl" '
             f'style="color:{style.MUTED};font-weight:600;text-transform:uppercase;'
-            f'font-size:.78rem">Predicted completion</div>'
+            f'font-size:.78rem">Estimated share of construction<br>finished as of today</div>'
             f'<div class="big">{pred:.0f}%</div>'
             f'<div class="re-badge">{band}</div>{expected_txt}'
+            f'<div style="font-size:.85rem;margin-top:.8rem">{takeaway}</div>'
             f'<div style="color:{style.MUTED};font-size:.8rem;margin-top:.8rem">'
             f'Model validation · MAE ≈ {model.metrics.get("val_mae", float("nan")):.1f} pts · '
             f'R² ≈ {model.metrics.get("val_r2", float("nan")):.2f}</div></div>',
