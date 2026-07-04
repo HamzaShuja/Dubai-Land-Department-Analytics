@@ -40,9 +40,26 @@ html, body, [class*="css"], .stApp {{
 }}
 .stApp {{ background: {BG}; }}
 
-/* Hide default Streamlit chrome */
-#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"] {{ display: none !important; }}
-header[data-testid="stHeader"] {{ background: transparent; height: 0; }}
+/* Hide default Streamlit chrome (menu, footer, deploy toolbar) — but KEEP the
+   header strip and the sidebar open/close controls, so the nav can always be
+   reopened after collapsing it. */
+#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"],
+[data-testid="stStatusWidget"] {{ display: none !important; }}
+header[data-testid="stHeader"] {{ background: transparent; height: 2.4rem; box-shadow: none; }}
+
+/* The "reopen sidebar" control (shown top-left when the sidebar is collapsed) */
+[data-testid="stSidebarCollapsedControl"], [data-testid="stExpandSidebarButton"] {{
+    display: flex !important; visibility: visible !important; opacity: 1 !important;
+    background: {CARD}; border: 1px solid {BORDER}; border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(16,36,43,.12); color: {PRIMARY_DARK};
+}}
+[data-testid="stSidebarCollapsedControl"]:hover, [data-testid="stExpandSidebarButton"]:hover {{
+    background: {PRIMARY_SOFT};
+}}
+/* The sidebar's own collapse chevron stays visible too */
+[data-testid="stSidebar"] button[data-testid="stBaseButton-headerNoPadding"] {{
+    display: flex !important; visibility: visible !important;
+}}
 
 /* Main content width + padding */
 .block-container {{ padding: 1.6rem 2.4rem 3rem 2.4rem; max-width: 1500px; }}
@@ -112,6 +129,39 @@ header[data-testid="stHeader"] {{ background: transparent; height: 0; }}
 .re-result .big {{ font-size:2.6rem; font-weight:800; color:{PRIMARY}; line-height:1; }}
 .re-badge {{ display:inline-block; padding:.3rem .8rem; border-radius:999px; font-weight:600; font-size:.85rem;
     background:{PRIMARY_SOFT}; color:{PRIMARY_DARK}; margin-top:.5rem; }}
+
+/* Active page in the sidebar nav */
+[data-testid="stSidebarNav"] a[aria-current="page"] {{
+    background: {PRIMARY_SOFT}; font-weight: 700;
+}}
+[data-testid="stSidebarNav"] a[aria-current="page"] span {{ color: {PRIMARY_DARK}; }}
+
+/* Subtle lift on cards */
+.re-kpi, .re-result {{ transition: box-shadow .15s ease, transform .15s ease; }}
+.re-kpi:hover {{ box-shadow: 0 4px 14px rgba(16,36,43,.08); }}
+
+/* Hide Plotly's floating modebar for a cleaner read */
+.modebar {{ display: none !important; }}
+
+/* Nicer focus states */
+.stButton > button:focus, .stDownloadButton > button:focus,
+.stFormSubmitButton > button:focus {{
+    outline: 2px solid {PRIMARY}; outline-offset: 2px; box-shadow: none;
+}}
+
+/* Loading spinner accent */
+[data-testid="stSpinner"] i {{ border-top-color: {PRIMARY} !important; }}
+
+/* Responsive: tighten padding and type on narrow screens */
+@media (max-width: 1100px) {{
+    .block-container {{ padding: 1.1rem 1.2rem 2.2rem 1.2rem; }}
+}}
+@media (max-width: 700px) {{
+    .block-container {{ padding: .8rem .8rem 2rem .8rem; }}
+    .re-head h1 {{ font-size: 1.35rem; }}
+    .re-kpi .val {{ font-size: 1.45rem; }}
+    .re-result .big {{ font-size: 2rem; }}
+}}
 </style>
 """
 
