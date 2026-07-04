@@ -1,0 +1,46 @@
+# Verified, mutually-compatible versions (Python 3.10–3.11).
+# ---- Core data stack ----
+pandas==2.3.3
+numpy==2.2.6
+openpyxl==3.1.5
+SQLAlchemy==2.0.51
+psycopg[binary]==3.3.4
+python-dotenv==1.2.2
+pydantic==2.13.4
+pydantic-settings==2.14.2
+
+# ---- Analysis / stats ----
+scipy==1.15.3
+scikit-learn==1.7.2
+
+# ---- Models ----
+lightgbm==4.6.0
+prophet==1.3.0
+shap==0.49.1
+mlflow==3.14.0
+joblib==1.5.3
+
+# ---- API ----
+fastapi==0.138.0
+uvicorn[standard]==0.49.0
+
+# ---- Dashboard ----
+streamlit==1.58.0
+folium==0.20.0
+streamlit-folium==0.26.2
+plotly==6.8.0
+
+# ---- Scheduling & reporting ----
+APScheduler==3.11.2
+reportlab==4.5.1
+
+# ---- Tooling / tests ----
+pytest==9.1.1
+pytest-cov==7.1.0
+requests==2.34.2
+httpx==0.28.1
+
+# ---- Arabic→English display (PDF report + dashboard) ----
+Unidecode==1.4.0
+arabic-reshaper==3.0.0
+python-bidi==0.6.6

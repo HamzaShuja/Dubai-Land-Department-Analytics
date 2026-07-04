@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.git/
+.venv/
+artifacts/logs/
+artifacts/mlflow.db
+artifacts/mlruns/
+.pytest_cache/
+.env
