@@ -1,6 +1,6 @@
 name: keep-alive
 
-# Pings the deployed dashboard every 6 hours so Streamlit Community Cloud
+# Visits the deployed dashboard every 6 hours so Streamlit Community Cloud
 # never puts it to sleep (apps sleep after ~12h without visitors).
 on:
   schedule:
@@ -14,6 +14,18 @@ jobs:
       - name: Wake the dashboard
         run: |
           URL="https://dubai-land-department-analytics.streamlit.app"
-          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 120 -L "$URL")
-          echo "Pinged $URL -> HTTP $code"
-          test "$code" = "200"
+          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+          jar=$(mktemp)
+          ok=0
+          for i in 1 2 3; do
+            # Load the app page like a browser; the cookie jar prevents the
+            # redirect loop Streamlit's edge produces for cookieless clients.
+            code=$(curl -s -o /dev/null -w "%{http_code}" -A "$UA" -c "$jar" -b "$jar" \
+                 --max-redirs 10 --max-time 120 -L "$URL" || true)
+            # Confirm the app server is actually up via its health endpoint.
+            health=$(curl -s -A "$UA" -b "$jar" --max-time 60 "$URL/_stcore/health" || true)
+            echo "attempt $i: page HTTP $code, health='$health'"
+            if [ "$health" = "ok" ] || [ "$code" = "200" ]; then ok=1; break; fi
+            sleep 30
+          done
+          test "$ok" = "1"
