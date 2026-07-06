@@ -1,0 +1,19 @@
+name: keep-alive
+
+# Pings the deployed dashboard every 6 hours so Streamlit Community Cloud
+# never puts it to sleep (apps sleep after ~12h without visitors).
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wake the dashboard
+        run: |
+          URL="https://dubai-land-department-analytics.streamlit.app"
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 120 -L "$URL")
+          echo "Pinged $URL -> HTTP $code"
+          test "$code" = "200"
