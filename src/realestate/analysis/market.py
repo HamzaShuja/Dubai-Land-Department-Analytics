@@ -2,13 +2,13 @@
 
 Provides the building blocks for the dashboard's Market Overview page:
 
-* ``transaction_summary``   – tidy wide table (Value & Number per quarter/type).
-* ``average_value_per_txn`` – derived mean AED per transaction over time.
-* ``price_index``           – the **custom Dubai Real Estate Price Index**: a
+* ``transaction_summary``  - tidy wide table (Value & Number per quarter/type).
+* ``average_value_per_txn`` - derived mean AED per transaction over time.
+* ``price_index``          - the **custom Dubai Real Estate Price Index**: a
   rebased rolling index (base period = 100) per property type, tracking how the
   average sale value per transaction moves over time.
-* ``volume_trends`` / ``value_trends`` – total counts / AED by period.
-* ``seasonal_profile``      – average activity by calendar quarter, with a simple
+* ``volume_trends`` / ``value_trends`` - total counts / AED by period.
+* ``seasonal_profile``     - average activity by calendar quarter, with a simple
   seasonality strength metric.
 """
 from __future__ import annotations
@@ -80,7 +80,7 @@ def volume_trends(tx: pd.DataFrame, group: str = "Sales") -> pd.DataFrame:
 
 
 def seasonal_profile(tx: pd.DataFrame, group: str = "Sales") -> pd.DataFrame:
-    """Average transaction count by calendar quarter (1–4) with a seasonality
+    """Average transaction count by calendar quarter (1-4) with a seasonality
     strength score = std across quarters / overall mean."""
     s = transaction_summary(tx)
     s = s[s["transaction_group"] == group]

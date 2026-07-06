@@ -32,8 +32,8 @@ style.metric_card(k4, "Units in stalled projects", f"{wl['zombie_units']/1000:.0
 style.callout(
     "Where delivery promises are already broken",
     f"{wl['n_overdue']} off-plan projects ({wl['overdue_units']:,} units) have blown through "
-    f"their planned completion dates. {wl['n_zombie']} of them are stalled — overdue and less "
-    f"than {wl['threshold']:.0f}% built — trapping {wl['zombie_units']:,} units. "
+    f"their planned completion dates. {wl['n_zombie']} of them are stalled - overdue and less "
+    f"than {wl['threshold']:.0f}% built - trapping {wl['zombie_units']:,} units. "
     "These, not new launches, are where buyer and lender risk is concentrated today.",
     kind="risk",
 )
@@ -43,7 +43,7 @@ style.section("Stated pipeline vs build progress")
 rp = mi.realistic_pipeline(pr)
 fig = px.bar(rp, x="end_year", y="units", color="progress_band",
              color_discrete_map={"<30% built": "#C4562A",
-                                 "30–70% built": "#E3B341",
+                                 "30-70% built": "#E3B341",
                                  ">70% built": style.PRIMARY},
              labels={"units": "Off-plan units", "end_year": "Promised completion year",
                      "progress_band": ""})
@@ -54,7 +54,7 @@ near_total = near["units"].sum()
 if near_total:
     st.caption(f"Of the {near_total:,.0f} units promised by end-2027, "
                f"{near_risky:,.0f} ({near_risky/near_total*100:.0f}%) sit in projects "
-               f"less than 30% built — schedule slippage is almost certain for most of them.")
+               f"less than 30% built - schedule slippage is almost certain for most of them.")
 
 # ---- Developer reliability ---------------------------------------------------
 style.section("Developer reliability (10+ tracked projects)")
@@ -64,17 +64,17 @@ c1, c2 = st.columns(2)
 with c1:
     top = rel.head(8).sort_values("reliability_score")
     fig = px.bar(top, x="reliability_score", y="developer", orientation="h",
-                 labels={"reliability_score": "Reliability score (0–100)", "developer": ""})
+                 labels={"reliability_score": "Reliability score (0-100)", "developer": ""})
     fig.update_traces(marker_color=style.PRIMARY)
     st.plotly_chart(style.style_plotly(fig, height=300), width="stretch")
-    st.caption("Most reliable — high delivery rate, little overdue stock.")
+    st.caption("Most reliable - high delivery rate, little overdue stock.")
 with c2:
     bot = rel.tail(8).sort_values("reliability_score")
     fig = px.bar(bot, x="reliability_score", y="developer", orientation="h",
-                 labels={"reliability_score": "Reliability score (0–100)", "developer": ""})
+                 labels={"reliability_score": "Reliability score (0-100)", "developer": ""})
     fig.update_traces(marker_color="#C4562A")
     st.plotly_chart(style.style_plotly(fig, height=300), width="stretch")
-    st.caption("Least reliable — chronic overruns or stalled portfolios.")
+    st.caption("Least reliable - chronic overruns or stalled portfolios.")
 
 show = rel[["developer", "n_projects", "total_units", "delivered_rate",
             "avg_completion", "overdue_projects", "overdue_units", "reliability_score"]]

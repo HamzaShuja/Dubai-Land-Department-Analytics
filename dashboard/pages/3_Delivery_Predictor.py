@@ -16,7 +16,7 @@ style.bootstrap_page(
     "Estimates what share of a project's construction is finished as of today, "
     "based on the developer's delivery track record and the project's size, type "
     "and timeline. The estimate is compared with projects launched the same year "
-    "to judge whether this one is on pace or falling behind — and SHAP shows "
+    "to judge whether this one is on pace or falling behind - and SHAP shows "
     "exactly what drove the number.",
 )
 
@@ -96,13 +96,13 @@ if submitted:
     # Plain-English takeaway
     if peer == peer:  # cohort median available
         if "Early stage" in band:
-            takeaway = (f"Too new to judge — projects launched in {start_year} have "
+            takeaway = (f"Too new to judge - projects launched in {start_year} have "
                         f"barely broken ground (≈{peer:.0f}% built on average).")
         elif pred >= peer * 0.9:
-            takeaway = (f"On pace — a typical {start_year} launch is ≈{peer:.0f}% built "
+            takeaway = (f"On pace - a typical {start_year} launch is ≈{peer:.0f}% built "
                         f"by now, and this project is estimated at {pred:.0f}%.")
         else:
-            takeaway = (f"Falling behind — a typical {start_year} launch is ≈{peer:.0f}% "
+            takeaway = (f"Falling behind - a typical {start_year} launch is ≈{peer:.0f}% "
                         f"built by now, but this project is estimated at only {pred:.0f}%.")
     else:
         takeaway = "No same-year projects to compare against; risk band uses absolute thresholds."
@@ -125,7 +125,7 @@ if submitted:
         if dev_ref:
             st.markdown(
                 f'<div style="color:{style.MUTED};font-size:.85rem;margin-top:.6rem">'
-                f'<b>{dev_label}</b> track record — '
+                f'<b>{dev_label}</b> track record - '
                 f'{int(dev_ref["dev_n_projects"])} projects · '
                 f'{dev_ref["dev_delivered_rate_loo"]:.0f}% delivered · '
                 f'{dev_ref["dev_avg_completion_loo"]:.0f}% avg completion</div>',

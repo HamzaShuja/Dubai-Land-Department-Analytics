@@ -2,10 +2,10 @@
 
 Two surfaces:
 
-* ``detect_transaction_anomalies`` – flags unusual quarter/property-type market
+* ``detect_transaction_anomalies`` - flags unusual quarter/property-type market
   observations (e.g. a quarter where average value per transaction or volume
   departs sharply from the historical pattern).
-* ``detect_project_anomalies`` – flags projects whose size / completion /
+* ``detect_project_anomalies`` - flags projects whose size / completion /
   duration profile is atypical, surfacing potential data-quality issues or
   genuinely unusual developments.
 """

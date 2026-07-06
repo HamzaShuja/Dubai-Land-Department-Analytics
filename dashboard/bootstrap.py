@@ -16,7 +16,7 @@ from realestate.ingestion import ingest  # noqa: E402
 from realestate.cleaning import clean_transactions, clean_projects  # noqa: E402
 
 
-@st.cache_data(ttl=3600, show_spinner="Loading market data…")
+@st.cache_data(ttl=86400, show_spinner="Loading market data…")
 def load_data():
     """Return (transactions_df, projects_df, source). Tries PostgreSQL, then
     falls back to the local Dubai Pulse workbooks so the dashboard always runs."""

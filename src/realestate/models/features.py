@@ -1,6 +1,6 @@
 """Feature engineering for the project-delivery model.
 
-The model predicts a project's **eventual completion percentage** — a proxy for
+The model predicts a project's **eventual completion percentage** - a proxy for
 delivery risk that an off-plan investor cares about most. Features deliberately
 exclude the project's own status / delivery flags (which would leak the target).
 Developer-level reputation signals are encoded with a **leave-one-out** mean so

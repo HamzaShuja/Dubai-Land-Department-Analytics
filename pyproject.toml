@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dubai-real-estate-analytics"
 version = "1.0.0"
-description = "Dubai Real Estate Analytics Platform — ETL, analysis, ML, API and dashboard on Dubai Pulse & DLD open data."
+description = "Dubai Real Estate Analytics Platform - ETL, analysis, ML, API and dashboard on Dubai Pulse & DLD open data."
 requires-python = ">=3.10"
 authors = [{ name = "Hamza Shuja", email = "hamza.shuja99@gmail.com" }]
 license = { text = "MIT" }

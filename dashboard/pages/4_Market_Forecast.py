@@ -10,7 +10,7 @@ tx, _, _ = load_data()
 ptype = st.selectbox("Property type", ["Units", "Building", "Land", "Villa"])
 
 
-@st.cache_data(ttl=3600, show_spinner="Fitting Prophet model…")
+@st.cache_data(ttl=86400, show_spinner="Fitting Prophet model…")
 def _forecast(ptype):
     from realestate.models.forecast import forecast_property_type
     return forecast_property_type(tx, ptype, periods=4)
@@ -38,7 +38,7 @@ fig.add_trace(go.Scatter(x=fc["ds"], y=fc["yhat"], mode="lines", name="Forecast"
 fig.update_layout(yaxis_title="Avg sale value per transaction (AED)", xaxis_title="")
 st.plotly_chart(style.style_plotly(fig, height=420), width="stretch")
 
-style.section("Forecast — next 4 quarters")
+style.section("Forecast - next 4 quarters")
 st.dataframe(fut[["ds", "yhat", "yhat_lower", "yhat_upper"]]
              .rename(columns={"ds": "Quarter", "yhat": "Forecast",
                               "yhat_lower": "Lower (80%)", "yhat_upper": "Upper (80%)"})

@@ -2,7 +2,7 @@
 
 Provides one CSS injection plus small helpers (branded sidebar, page header,
 metric cards, section headers, a Plotly theme, and an English-display transform)
-so all pages share a clean, professional look — white cards, an emerald accent,
+so all pages share a clean, professional look - white cards, an emerald accent,
 soft shadows and rounded corners.
 """
 from __future__ import annotations
@@ -40,7 +40,7 @@ html, body, [class*="css"], .stApp {{
 }}
 .stApp {{ background: {BG}; }}
 
-/* Hide default Streamlit chrome (menu, footer, deploy toolbar) — but KEEP the
+/* Hide default Streamlit chrome (menu, footer, deploy toolbar) - but KEEP the
    header strip and the sidebar open/close controls, so the nav can always be
    reopened after collapsing it. */
 #MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"],

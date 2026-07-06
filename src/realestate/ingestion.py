@@ -105,7 +105,7 @@ def fetch_projects_api(settings: Settings) -> Optional[pd.DataFrame]:
         )
         log.info("DLD API returned %d project rows", len(df))
         return df
-    except Exception as exc:  # noqa: BLE001 — defensive: never crash on API
+    except Exception as exc:  # noqa: BLE001 - defensive: never crash on API
         log.warning("DLD API fetch failed (%s); falling back to XLSX.", exc)
         return None
 

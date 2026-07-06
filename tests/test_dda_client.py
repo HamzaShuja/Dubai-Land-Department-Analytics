@@ -1,4 +1,4 @@
-"""DDA iPaaS client — token flow, headers, pagination and parsing (mocked)."""
+"""DDA iPaaS client - token flow, headers, pagination and parsing (mocked)."""
 import requests
 
 from realestate.config import Settings

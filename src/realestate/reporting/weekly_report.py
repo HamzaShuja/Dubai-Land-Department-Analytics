@@ -120,7 +120,7 @@ def generate_report(output_path: str | Path | None = None) -> Path:
     body = styles["BodyText"]
 
     story = []
-    story.append(Paragraph("Dubai Real Estate — Weekly Market Report", h1))
+    story.append(Paragraph("Dubai Real Estate - Weekly Market Report", h1))
     story.append(Paragraph(
         f"Generated {datetime.now():%d %B %Y}", ParagraphStyle(
             "sub", parent=body, textColor=GOLD, fontSize=10)))
@@ -153,7 +153,7 @@ def generate_report(output_path: str | Path | None = None) -> Path:
             change = g["index_value"].iloc[-1] - g["index_value"].iloc[-2]
             movers.append((ptype, g["index_value"].iloc[-1], change))
     movers.sort(key=lambda r: r[2], reverse=True)
-    story.append(Paragraph("Custom Price Index — Latest Movers", h2))
+    story.append(Paragraph("Custom Price Index - Latest Movers", h2))
     story.append(_table(
         [["Property type", "Index", "QoQ change"]]
         + [[m[0], f"{m[1]:.1f}", f"{m[2]:+.1f}"] for m in movers],
@@ -186,10 +186,10 @@ def generate_report(output_path: str | Path | None = None) -> Path:
         from ..models.forecast import forecast_property_type
         fc = forecast_property_type(tx, "Units", periods=1)
         nxt = fc[fc.is_forecast].iloc[0]
-        story.append(Paragraph("Forecast Snapshot — Units (next quarter)", h2))
+        story.append(Paragraph("Forecast Snapshot - Units (next quarter)", h2))
         story.append(Paragraph(
             f"Projected average sale value: {_aed(nxt['yhat'])} "
-            f"(80% CI {_aed(nxt['yhat_lower'])} – {_aed(nxt['yhat_upper'])}).", body))
+            f"(80% CI {_aed(nxt['yhat_lower'])} - {_aed(nxt['yhat_upper'])}).", body))
         story.append(Spacer(1, 0.4 * cm))
     except Exception as exc:  # noqa: BLE001
         log.warning("forecast snapshot skipped: %s", exc)

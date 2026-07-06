@@ -23,7 +23,7 @@ def coverage(tx: pd.DataFrame) -> dict:
     full = set(range(min(years), max(years) + 1))
     missing = sorted(full - set(years))
     return {"years": years, "missing": missing,
-            "label": f"{min(years)}–{max(years)}",
+            "label": f"{min(years)}-{max(years)}",
             "note": ("2024 not published in this Dubai Pulse dataset"
                      if 2024 in missing else "")}
 
@@ -121,7 +121,7 @@ def _concentration(projects: pd.DataFrame, key: str, n: int) -> dict:
     g = projects.groupby(key)["no_of_units"].sum().sort_values(ascending=False)
     total = g.sum()
     shares = (g / total * 100) if total else g
-    hhi = float(((g / total) ** 2).sum() * 10000) if total else 0.0  # 0–10000
+    hhi = float(((g / total) ** 2).sum() * 10000) if total else 0.0  # 0-10000
     top = shares.head(n)
     return {
         "top_n_share": float(top.sum()),
@@ -214,14 +214,14 @@ def sales_mix(tx: pd.DataFrame) -> pd.DataFrame:
 
 
 # --------------------------------------------------------------------------- #
-# Overdue / zombie watchlist — the actionable delivery-risk list
+# Overdue / zombie watchlist - the actionable delivery-risk list
 # --------------------------------------------------------------------------- #
 def overdue_watchlist(projects: pd.DataFrame, today=None,
                       zombie_threshold: float = 30.0) -> dict:
     """Off-plan projects already past their planned end date.
 
     ``is_zombie`` marks the worst cases: overdue AND less than
-    ``zombie_threshold``% built — projects that realistically will not deliver
+    ``zombie_threshold``% built - projects that realistically will not deliver
     without re-planning. Returns the watchlist plus headline totals.
     """
     today = pd.Timestamp(today) if today is not None else pd.Timestamp.today()
@@ -250,7 +250,7 @@ def overdue_watchlist(projects: pd.DataFrame, today=None,
 # --------------------------------------------------------------------------- #
 def developer_reliability(projects: pd.DataFrame, min_projects: int = 10,
                           today=None) -> pd.DataFrame:
-    """Composite delivery-reliability score per developer (0–100).
+    """Composite delivery-reliability score per developer (0-100).
 
     Blends delivered rate (40%), average completion (30%) and the share of the
     developer's off-plan portfolio that is already overdue (30%, inverted).
@@ -295,7 +295,7 @@ def realistic_pipeline(projects: pd.DataFrame, first_year: int = 2024) -> pd.Dat
     off["end_year"] = off["end_year"].astype(int)
     off = off[off["end_year"] >= first_year]
     bands = pd.cut(off["percent_completed"], [-0.1, 30, 70, 100.1],
-                   labels=["<30% built", "30–70% built", ">70% built"])
+                   labels=["<30% built", "30-70% built", ">70% built"])
     out = (off.groupby(["end_year", bands], observed=True)["no_of_units"]
            .sum().reset_index()
            .rename(columns={"percent_completed": "progress_band", "no_of_units": "units"}))

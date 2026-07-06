@@ -74,7 +74,7 @@ style.coverage_note(f"Market data {cov['label']}" + (f" · {cov['note']}." if co
 
 
 # ---- Price signal: average ticket by property type ---------------------------
-style.section("Price signal — average sale value per transaction")
+style.section("Price signal - average sale value per transaction")
 tt = mi.ticket_trends(tx)
 chips = st.columns(max(len(tt["summary"]), 1))
 for col, (_, r) in zip(chips, tt["summary"].iterrows()):
@@ -86,11 +86,11 @@ fig_t = px.line(tt["series"], x="period_label", y="avg_value_per_txn",
                 labels={"avg_value_per_txn": "Avg value / transaction (AED)",
                         "period_label": "", "property_type": ""})
 st.plotly_chart(style.style_plotly(fig_t, height=320), width="stretch")
-st.caption("Buildings are a thin, lumpy segment (few very large deals per quarter) — "
+st.caption("Buildings are a thin, lumpy segment (few very large deals per quarter) - "
            "read its swings with caution. Villas show the strongest sustained repricing.")
 
 # ---- Credit profile: cash vs mortgage ----------------------------------------
-style.section("Credit profile — how leveraged is the market?")
+style.section("Credit profile - how leveraged is the market?")
 cp = mi.credit_profile(tx)
 lc, rc = st.columns([2, 1])
 with lc:
@@ -109,12 +109,12 @@ with rc:
         "A cash-driven market",
         f"Mortgage registrations were {cp['early_avg']:.1f}× sales value in 2016 but only "
         f"{cp['recent_avg']:.2f}× over the last four reported quarters. Today's rally is "
-        "financed largely with equity, not debt — a structurally healthier footing than "
+        "financed largely with equity, not debt - a structurally healthier footing than "
         "the leveraged run-ups of the past.",
     )
 
 # ---- Mix shift ----------------------------------------------------------------
-style.section("Sales mix — where the money goes")
+style.section("Sales mix - where the money goes")
 mix = mi.sales_mix(tx)
 mix_l = mix.melt(id_vars=["period", "period_label"], var_name="property_type",
                  value_name="share")
@@ -127,5 +127,5 @@ first4 = mix.head(4).mean(numeric_only=True)
 last4 = mix.tail(4).mean(numeric_only=True)
 st.caption(f"Land deals made up {first4.get('Land', 0):.0f}% of sales value in 2016 but "
            f"{last4.get('Land', 0):.0f}% recently; apartments ({last4.get('Units', 0):.0f}%) "
-           f"and villas ({last4.get('Villa', 0):.0f}%) now drive the market — "
+           f"and villas ({last4.get('Villa', 0):.0f}%) now drive the market - "
            "end-user product has displaced land speculation.")

@@ -1,4 +1,4 @@
-"""Home dashboard — market intelligence at a glance."""
+"""Home dashboard - market intelligence at a glance."""
 import streamlit as st
 from bootstrap import load_data
 import style
@@ -47,13 +47,13 @@ style.callout(
     f"Quarterly sales hit an all-time high of AED {mom.value_aed/1e9:.0f}B "
     f"({mom.cagr_pct:.0f}%/yr since {mom.first_label}). "
     f"{offplan_units/1000:.0f}k units are in the pipeline, but {risk['at_risk_share']:.0f}% "
-    f"of them sit in projects less than 30% built — a delivery-timing risk to watch.{peak_txt}",
+    f"of them sit in projects less than 30% built - a delivery-timing risk to watch.{peak_txt}",
 )
 
 # ---- Supply pipeline + inventory mix ---------------------------------------
 left, right = st.columns([2, 1])
 with left:
-    style.section("Forward supply — units by expected completion year")
+    style.section("Forward supply - units by expected completion year")
     fig = px.bar(pipe, x="end_year", y="units",
                  labels={"units": "Off-plan units", "end_year": ""})
     fig.update_traces(marker_color=style.PRIMARY)

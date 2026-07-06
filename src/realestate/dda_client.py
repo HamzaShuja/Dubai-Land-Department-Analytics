@@ -136,7 +136,7 @@ class DDAClient:
             df = pd.DataFrame(records)
             df = _normalise_api_projects(df)
             return df
-        except Exception as exc:  # noqa: BLE001 — never break the pipeline
+        except Exception as exc:  # noqa: BLE001 - never break the pipeline
             log.warning("DDA iPaaS fetch failed (%s); falling back to XLSX.", exc)
             return None
 

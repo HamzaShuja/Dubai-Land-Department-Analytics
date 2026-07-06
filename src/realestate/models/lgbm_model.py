@@ -123,7 +123,7 @@ def train(projects: pd.DataFrame, seed: int = 42, register: bool = True) -> Trai
         try:
             mlflow.register_model(f"runs:/{best_run_id}/model", "DubaiDeliveryModel")
             log.info("Registered best run %s as DubaiDeliveryModel", best_run_id)
-        except Exception as exc:  # noqa: BLE001 — registry optional on file store
+        except Exception as exc:  # noqa: BLE001 - registry optional on file store
             log.warning("Model registry step skipped (%s)", exc)
 
     return best

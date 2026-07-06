@@ -1,4 +1,4 @@
-"""Dubai Real Estate Analytics — entry point and navigation controller.
+"""Dubai Real Estate Analytics - entry point and navigation controller.
 
 Run with:  streamlit run dashboard/app.py
 """

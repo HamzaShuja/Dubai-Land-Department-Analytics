@@ -32,7 +32,7 @@ style.metric_card(k4, "Developer HHI", f"{hhi:.0f}",
 style.callout(
     "Fragmented market, risk concentrated in early-stage supply",
     f"The top 5 developers hold {devc['top_n_share']:.0f}% of units (HHI {hhi:.0f}, a competitive market), "
-    f"but {risk['at_risk_share']:.0f}% of the off-plan pipeline is under 30% built — "
+    f"but {risk['at_risk_share']:.0f}% of the off-plan pipeline is under 30% built - "
     "so delivery risk is concentrated in newer launches rather than any single developer.",
     kind="risk",
 )
@@ -97,6 +97,6 @@ style.metric_card(m3, "Cohen's d", f"{res.cohens_d:.2f}")
 style.metric_card(m4, "Significant (5%)", "Yes" if res.significant_5pct else "No",
                   primary=res.significant_5pct)
 res2 = stats_tests.compare_offplan_vs_ready_completion(pr)
-st.caption(f"Off-plan vs ready completion — mean off-plan {res2.mean_a:.1f}% vs ready {res2.mean_b:.1f}%; "
+st.caption(f"Off-plan vs ready completion - mean off-plan {res2.mean_a:.1f}% vs ready {res2.mean_b:.1f}%; "
            f"t-test p = {res2.t_pvalue:.2g}, "
            f"{'significant' if res2.significant_5pct else 'not significant'} at 5%.")

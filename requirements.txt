@@ -1,4 +1,4 @@
-# Verified, mutually-compatible versions (Python 3.10–3.11).
+# Verified, mutually-compatible versions (Python 3.10-3.11).
 # ---- Core data stack ----
 pandas==2.3.3
 numpy==2.2.6
