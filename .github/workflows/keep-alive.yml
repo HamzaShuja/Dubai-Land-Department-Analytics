@@ -1,31 +1,60 @@
 name: keep-alive
 
-# Visits the deployed dashboard every 6 hours so Streamlit Community Cloud
-# never puts it to sleep (apps sleep after ~12h without visitors).
+# Visits the deployed dashboard with a real headless browser every 6 hours.
+# Streamlit Community Cloud only counts genuine browser sessions (WebSocket
+# connections) as activity, so plain HTTP pings do not prevent sleep. This
+# job opens the app like a visitor and, if the app has already gone to
+# sleep, clicks the wake-up button.
 on:
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
-  ping:
+  visit:
     runs-on: ubuntu-latest
     steps:
-      - name: Wake the dashboard
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install Playwright
         run: |
-          URL="https://dubai-land-department-analytics.streamlit.app"
-          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-          jar=$(mktemp)
-          ok=0
-          for i in 1 2 3; do
-            # Load the app page like a browser; the cookie jar prevents the
-            # redirect loop Streamlit's edge produces for cookieless clients.
-            code=$(curl -s -o /dev/null -w "%{http_code}" -A "$UA" -c "$jar" -b "$jar" \
-                 --max-redirs 10 --max-time 120 -L "$URL" || true)
-            # Confirm the app server is actually up via its health endpoint.
-            health=$(curl -s -A "$UA" -b "$jar" --max-time 60 "$URL/_stcore/health" || true)
-            echo "attempt $i: page HTTP $code, health='$health'"
-            if [ "$health" = "ok" ] || [ "$code" = "200" ]; then ok=1; break; fi
-            sleep 30
-          done
-          test "$ok" = "1"
+          pip install --quiet playwright
+          playwright install chromium --with-deps
+
+      - name: Visit the dashboard like a real user
+        run: |
+          python - <<'PYEOF'
+          import sys, time
+          from playwright.sync_api import sync_playwright
+
+          URL = "https://dubai-land-department-analytics.streamlit.app"
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page()
+              page.goto(URL, wait_until="domcontentloaded", timeout=120_000)
+              time.sleep(15)  # let the Streamlit session establish
+
+              # If the app is asleep, press the wake-up button and wait.
+              wake = page.get_by_text("back up", exact=False)
+              if wake.count():
+                  print("App was asleep - clicking wake-up button")
+                  wake.first.click()
+                  time.sleep(90)
+
+              # Success = the Streamlit app container is rendered.
+              try:
+                  page.wait_for_selector('[data-testid="stAppViewContainer"]',
+                                         timeout=180_000)
+                  ok = True
+              except Exception:
+                  ok = False
+
+              print("App running:", ok, "| title:", page.title())
+              # Keep the session open a little longer so it registers.
+              time.sleep(15)
+              browser.close()
+              sys.exit(0 if ok else 1)
+          PYEOF
