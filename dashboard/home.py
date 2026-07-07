@@ -76,21 +76,17 @@ st.plotly_chart(style.style_plotly(fig3, height=300), width="stretch")
 # ---- Explore + governance ---------------------------------------------------
 style.section("Explore")
 pages = [
-    ("📈", "Market Overview", "Volume, value & the Dubai Price Index."),
-    ("🗺️", "Geospatial Map", "Activity & risk across communities."),
-    ("🤖", "Delivery Predictor", "Delivery-risk prediction with SHAP."),
-    ("🚨", "Delivery Watchlist", "Overdue projects & developer reliability."),
-    ("🔮", "Market Forecast", "Prophet 12-month outlook."),
-    ("🧭", "District Intelligence", "Tiers, concentration & anomalies."),
+    ("📈", "Market Overview", "Volume, value & the Dubai Price Index.", "pages/1_Market_Overview.py"),
+    ("🗺️", "Geospatial Map", "Activity & risk across communities.", "pages/2_Geospatial_Map.py"),
+    ("🤖", "Delivery Predictor", "Delivery-risk prediction with SHAP.", "pages/3_Delivery_Predictor.py"),
+    ("🚨", "Delivery Watchlist", "Overdue projects & developer reliability.", "pages/6_Delivery_Watchlist.py"),
+    ("🔮", "Market Forecast", "Prophet 12-month outlook.", "pages/4_Market_Forecast.py"),
+    ("🧭", "District Intelligence", "Tiers, concentration & anomalies.", "pages/5_District_Intelligence.py"),
 ]
-for col, (ico, name, desc) in zip(st.columns(len(pages)), pages):
-    col.markdown(
-        f'<div class="re-kpi" style="min-height:140px"><div style="font-size:1.5rem">{ico}</div>'
-        f'<div style="font-weight:700;margin:.35rem 0 .2rem 0">{name}</div>'
-        f'<div style="font-size:.8rem;color:{style.MUTED}">{desc}</div></div>',
-        unsafe_allow_html=True,
-    )
-
+for col, (ico, name, desc, path) in zip(st.columns(len(pages)), pages):
+    with col:
+        st.page_link(path, label=name, icon=ico)
+        st.caption(desc)
 st.write("")
 style.coverage_note(
     f"Source: Dubai Pulse · Dubai Land Department (DLD). Market data {cov['label']}"

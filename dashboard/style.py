@@ -130,6 +130,17 @@ header[data-testid="stHeader"] {{ background: transparent; height: 2.4rem; box-s
 .re-badge {{ display:inline-block; padding:.3rem .8rem; border-radius:999px; font-weight:600; font-size:.85rem;
     background:{PRIMARY_SOFT}; color:{PRIMARY_DARK}; margin-top:.5rem; }}
 
+/* Explore cards: st.page_link rendered as clickable cards */
+[data-testid="stPageLink"] a, a[data-testid="stPageLink-NavLink"] {{
+    background: {CARD}; border: 1px solid {BORDER}; border-radius: 12px;
+    padding: .65rem .9rem; font-weight: 700; color: {INK} !important;
+    width: 100%; box-shadow: 0 1px 3px rgba(16,36,43,.04);
+    transition: background .12s ease, border-color .12s ease;
+}}
+[data-testid="stPageLink"] a:hover, a[data-testid="stPageLink-NavLink"]:hover {{
+    background: {PRIMARY_SOFT}; border-color: {PRIMARY};
+}}
+
 /* Active page in the sidebar nav */
 [data-testid="stSidebarNav"] a[aria-current="page"] {{
     background: {PRIMARY_SOFT}; font-weight: 700;
@@ -168,6 +179,60 @@ header[data-testid="stHeader"] {{ background: transparent; height: 2.4rem; box-s
 
 def inject() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
+
+
+def sidebar_reopen_shim() -> None:
+    """Mount a floating arrow on the page that reopens the sidebar.
+
+    Streamlit's built-in reopen control is unreliable once the default header
+    chrome is customised, so this adds our own button to the parent document.
+    It appears only while the sidebar is collapsed and programmatically clicks
+    whatever native expand control the running Streamlit version provides."""
+    import streamlit.components.v1 as components
+
+    components.html("""
+    <script>
+    const doc = window.parent.document;
+    if (!doc.getElementById('re-sb-open')) {
+        const btn = doc.createElement('button');
+        btn.id = 're-sb-open';
+        btn.title = 'Open navigation';
+        btn.textContent = '\u276F';
+        Object.assign(btn.style, {
+            position: 'fixed', top: '0.7rem', left: '0.7rem', zIndex: '9999999',
+            width: '2.3rem', height: '2.3rem', display: 'none',
+            alignItems: 'center', justifyContent: 'center',
+            background: '#FFFFFF', color: '#14603F',
+            border: '1px solid #E9EDF0', borderRadius: '10px',
+            boxShadow: '0 2px 8px rgba(16,36,43,.16)', cursor: 'pointer',
+            fontSize: '1rem', fontWeight: '700', padding: '0'
+        });
+        btn.addEventListener('mouseenter', () => { btn.style.background = '#E7F2EC'; });
+        btn.addEventListener('mouseleave', () => { btn.style.background = '#FFFFFF'; });
+        btn.addEventListener('click', () => {
+            const sels = [
+                '[data-testid="stSidebarCollapsedControl"] button',
+                '[data-testid="stSidebarCollapsedControl"]',
+                'button[data-testid="stExpandSidebarButton"]',
+                '[data-testid="stExpandSidebarButton"]',
+                '[data-testid="stHeader"] button'
+            ];
+            for (const s of sels) {
+                const el = doc.querySelector(s);
+                if (el) { el.click(); return; }
+            }
+        });
+        doc.body.appendChild(btn);
+        const update = () => {
+            const sb = doc.querySelector('[data-testid="stSidebar"]');
+            const open = sb && sb.offsetWidth > 100 &&
+                         getComputedStyle(sb).visibility !== 'hidden';
+            btn.style.display = open ? 'none' : 'flex';
+        };
+        setInterval(update, 400);
+        update();
+    }
+    </script>""", height=0, width=0)
 
 
 def sidebar_brand() -> None:

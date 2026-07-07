@@ -10,6 +10,7 @@ import style
 
 style.inject()
 style.sidebar_brand()
+style.sidebar_reopen_shim()
 
 pages = [
     st.Page("home.py", title="Dashboard", icon="🏠", default=True),
