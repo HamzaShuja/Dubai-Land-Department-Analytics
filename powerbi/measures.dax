@@ -1,0 +1,115 @@
+-- ============================================================
+-- Dubai Land Department Analytics - DAX measures
+-- Create each measure on the table noted in [brackets].
+-- ============================================================
+
+-- ---------- Market activity [FactTransactions] ----------
+
+Sales Value =
+CALCULATE ( SUM ( FactTransactions[value_aed] ),
+    FactTransactions[transaction_group] = "Sales" )
+
+Sales Deals =
+CALCULATE ( SUM ( FactTransactions[txn_count] ),
+    FactTransactions[transaction_group] = "Sales" )
+
+Avg Ticket = DIVIDE ( [Sales Value], [Sales Deals] )
+
+Mortgage Value =
+CALCULATE ( SUM ( FactTransactions[value_aed] ),
+    FactTransactions[transaction_group] = "Mortgages" )
+
+Mortgage to Sales Ratio = DIVIDE ( [Mortgage Value], [Sales Value] )
+
+Latest Quarter =
+CALCULATE ( MAX ( DimDate[period_label] ),
+    FILTER ( DimDate, [Sales Value] > 0 ) )
+
+Sales Value Latest Q =
+VAR lastQ = CALCULATE ( MAX ( FactTransactions[quarter_start] ) )
+RETURN CALCULATE ( [Sales Value], FactTransactions[quarter_start] = lastQ )
+
+Sales Value YoY % =
+-- Quarter-index comparison instead of DATEADD: DimDate is quarter-grain
+-- (one row per quarter, not one per day), so it can't be marked as an
+-- official date table and DATEADD/time-intelligence functions won't work
+-- on it. year_quarter_sort (year*10 + quarter_number) gives a clean -4
+-- offset for "same quarter, prior year" without needing a daily calendar.
+-- year_quarter_sort = year*10 + quarter_number, so -10 = same quarter,
+-- one year back (e.g. 2025Q2 = 20252, 2024Q2 = 20242).
+VAR cur = [Sales Value]
+VAR curSort = SELECTEDVALUE ( DimDate[year_quarter_sort] )
+VAR prev =
+    CALCULATE ( [Sales Value],
+        FILTER ( ALL ( DimDate ), DimDate[year_quarter_sort] = curSort - 10 ) )
+RETURN IF ( NOT ISBLANK ( prev ) && prev <> 0, DIVIDE ( cur - prev, prev ) )
+-- Note: 2024 is not published in the source dataset, so YoY vs 2024 is blank
+-- by design. Disclose this on the report page.
+
+-- ---------- Supply pipeline & delivery risk [FactProjects] ----------
+
+Total Projects = COUNTROWS ( FactProjects )
+
+Total Units = SUM ( FactProjects[no_of_units] )
+
+Pipeline Units =
+CALCULATE ( [Total Units], FactProjects[is_offplan] = TRUE () )
+
+At-Risk Units =
+CALCULATE ( [Total Units],
+    FactProjects[is_offplan] = TRUE (),
+    FactProjects[percent_completed] < 30 )
+
+At-Risk Share = DIVIDE ( [At-Risk Units], [Pipeline Units] )
+
+Overdue Projects =
+CALCULATE ( [Total Projects], FactProjects[is_overdue] = TRUE () )
+
+Overdue Units =
+CALCULATE ( [Total Units], FactProjects[is_overdue] = TRUE () )
+
+Stalled Projects =
+CALCULATE ( [Total Projects], FactProjects[is_zombie] = TRUE () )
+
+Stalled Units =
+CALCULATE ( [Total Units], FactProjects[is_zombie] = TRUE () )
+
+Delivery Rate =
+DIVIDE (
+    CALCULATE ( [Total Projects], FactProjects[is_delivered] = TRUE () ),
+    [Total Projects] )
+
+Avg Completion = AVERAGE ( FactProjects[percent_completed] )
+
+Avg vs Cohort (pts) = AVERAGE ( FactProjects[vs_cohort_pts] )
+
+-- ---------- Developer intelligence [DimDeveloper] ----------
+
+Developers Tracked = COUNTROWS ( DimDeveloper )
+
+Avg Reliability Score = AVERAGE ( DimDeveloper[reliability_score] )
+
+-- ---------- Display helpers ----------
+
+Sales Value (B) = DIVIDE ( [Sales Value], 1e9 )         -- format: "AED #,0.0B"
+Pipeline Units (k) = DIVIDE ( [Pipeline Units], 1000 )  -- format: "#,0k units"
+
+-- ---------- Latest-quarter context (cards) [FactTransactions] ----------
+
+Mortgage to Sales Latest Q =
+VAR lastQ = CALCULATE ( MAX ( FactTransactions[quarter_start] ), ALL ( FactTransactions ) )
+RETURN CALCULATE ( [Mortgage to Sales Ratio], FactTransactions[quarter_start] = lastQ )
+
+Sales Value Prior Q =
+VAR lastQ = CALCULATE ( MAX ( FactTransactions[quarter_start] ), ALL ( FactTransactions ) )
+VAR prevQ = CALCULATE ( MAX ( FactTransactions[quarter_start] ),
+    FILTER ( ALL ( FactTransactions ), FactTransactions[quarter_start] < lastQ ) )
+RETURN CALCULATE ( [Sales Value], FactTransactions[quarter_start] = prevQ )
+
+Growth vs Prior Quarter =
+DIVIDE ( [Sales Value Latest Q] - [Sales Value Prior Q], [Sales Value Prior Q] )
+
+-- ---------- Seasonality [FactTransactions] ----------
+
+Avg Sales Value by Quarter No =
+AVERAGEX ( VALUES ( DimDate[year] ), [Sales Value] )

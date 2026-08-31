@@ -2,6 +2,14 @@
 
 All notable changes to the Dubai Real Estate Analytics Platform.
 
+## 1.6 - Power BI edition (2026-08)
+
+- New `powerbi/` toolkit: star-schema export (`realestate.powerbi_export`)
+  producing five analytics-ready tables, a complete DAX measure set, a brand
+  theme, a Power Query script that loads data straight from GitHub, and a
+  page-by-page build guide for a 5-page executive dashboard.
+- 4 new export tests (52 total).
+
 ## 1.5 - Insight overhaul (2026-07)
 
 - New **Delivery Watchlist** page: 347 overdue off-plan projects (~83k units)

@@ -1,0 +1,113 @@
+﻿developer,n_projects,total_units,delivered_rate,avg_completion,overdue_projects,overdue_units,overdue_share,reliability_score,reliability_tier
+Remraam,56,16390,96.4,97.9,2,124,0.0,96.9,Excellent
+District One,16,1619,93.8,94.2,0,0,0.0,95.8,Excellent
+The Lagoons (Phase 1),21,10493,85.7,93.8,0,0,0.0,92.4,Excellent
+Emaar Properties,154,43301,83.1,89.3,10,2894,0.1,88.1,Excellent
+Dubai Integrated Economic Zones,72,14956,81.9,85.3,4,1035,0.1,86.7,Excellent
+TECOM Investments,56,20343,76.8,87.2,7,3440,0.1,83.1,Excellent
+DAMAC Crescent Properties,50,6848,76.0,80.8,3,0,0.1,82.8,Excellent
+Jumeirah Golf Estates,25,589,76.0,78.7,2,0,0.1,81.6,Excellent
+Front Line Investment Management,45,3920,66.7,74.3,2,0,0.0,77.6,Dependable
+Dubai Sports City,86,20882,68.6,77.4,10,4549,0.1,77.2,Dependable
+DMCC (Dubai Multi Commodities Centre),55,25726,69.1,79.6,8,5928,0.1,77.1,Dependable
+Dubai Properties,117,17997,65.0,70.9,9,1151,0.1,74.9,Dependable
+Business Bay,113,48180,58.4,70.4,18,6437,0.2,69.7,Dependable
+Palm Jumeirah,28,3151,60.7,77.6,8,638,0.3,69.0,Dependable
+Jumeirah Village,364,70868,56.3,69.4,65,14263,0.2,68.0,Dependable
+Meydan Group,169,25176,53.3,60.8,10,1200,0.1,67.8,Dependable
+Al Furjan,83,11553,53.0,64.1,9,1126,0.1,67.2,Dependable
+Dubai Hills Estate,66,18141,48.5,65.8,5,926,0.1,66.9,Dependable
+Sobha,40,26295,47.5,61.5,2,985,0.0,66.0,Dependable
+Dubai Creek Harbour,24,7988,41.7,52.9,1,595,0.0,61.3,Dependable
+International City,41,4991,46.3,55.9,9,834,0.2,58.7,Below average
+Jumeirah Hills Development,10,2900,40.0,61.1,3,1076,0.3,55.3,Below average
+Dubai Healthcare City,18,5656,44.4,57.9,6,2280,0.3,55.1,Below average
+Emaar Dubai South DWC,29,2454,34.5,41.0,1,0,0.0,55.1,Below average
+Emaar Development,79,11221,30.4,48.5,5,1024,0.1,54.8,Below average
+Dubailand,36,7659,36.1,48.2,5,1687,0.1,54.7,Below average
+Liwan,125,27976,36.0,53.4,27,5188,0.2,53.9,Below average
+Union Properties PJSC,18,10341,33.3,36.7,1,433,0.1,52.7,Below average
+Nshama,36,7244,30.6,38.3,2,470,0.1,52.0,Below average
+Nakheel,319,53571,31.0,39.6,31,7426,0.1,51.4,Below average
+Dubailand Residences,92,21164,25.0,33.1,4,524,0.0,48.6,Below average
+Meraas,90,16315,24.4,37.7,21,2895,0.2,44.1,Below average
+JAG Development,16,4230,18.8,20.9,0,0,0.0,43.8,Below average
+Dubai Investments Park Development,17,5117,29.4,50.4,8,1198,0.5,42.8,Below average
+Dubai Aviation City Corporation,92,27318,18.5,28.7,17,8282,0.2,40.4,Below average
+Majid Al Futtaim Communities,15,3222,13.3,31.7,3,0,0.2,38.8,High risk
+Dubai Maritime City,25,10414,4.0,17.3,1,192,0.0,35.6,High risk
+Mina Rashid Real Estate,20,4442,5.0,14.0,1,155,0.0,34.7,High risk
+DHAM (Dubai Holding Asset Management),55,20162,3.6,13.0,8,3713,0.1,31.0,High risk
+Wahat Al Jazeera Real Estate,31,3473,3.2,42.8,14,0,0.5,30.6,High risk
+DAMAC Elite Investment,17,0,0.0,0.2,0,0,0.0,30.1,High risk
+DAMAC Meree Investment,14,6165,0.0,0.0,0,0,0.0,30.0,High risk
+Shamal Real Estate,20,1625,5.0,26.4,7,221,0.4,29.4,High risk
+Ilyas & Mustafa Galadari Investment & Development,10,9386,0.0,7.5,1,653,0.1,29.2,High risk
+Palm Deira,24,1579,0.0,6.1,5,321,0.2,25.6,High risk
+Istithmar Real Estate,1,164,100.0,100.0,0,0,0.0,,
+Al Habtoor City Development,1,1467,100.0,100.0,0,0,0.0,,
+Al Aryam (Phase 1),5,0,100.0,100.0,0,0,0.0,,
+Al Aryam (Phase 2),3,0,100.0,100.0,0,0,0.0,,
+Al Aseel Investments,1,910,100.0,100.0,0,0,0.0,,
+DAMAC World Real Estate,1,526,100.0,100.0,0,0,0.0,,
+Jumeirah Park,3,0,100.0,100.0,0,0,0.0,,
+Jumeirah Bay Residential,1,0,100.0,100.0,0,0,0.0,,
+MDN Real Estate,2,0,100.0,100.0,0,0,0.0,,
+Orion Real Estate Development,1,196,100.0,100.0,0,0,0.0,,
+Old Town Views,1,602,100.0,100.0,0,0,0.0,,
+ETA Star Real Estate Development,1,0,100.0,100.0,0,0,0.0,,
+BG Hotel Residential,1,65,100.0,100.0,0,0,0.0,,
+Al Fattan Properties,1,0,100.0,100.0,0,0,0.0,,
+Gulf General Investments (GGICO),2,252,100.0,100.0,0,0,0.0,,
+Al Khail Heights,1,1821,100.0,100.0,0,0,0.0,,
+Tanmiyat Global Real Estate Development,3,0,100.0,100.0,0,0,0.0,,
+BDLM Residential,1,284,100.0,100.0,0,0,0.0,,
+Jersey Real Estate Development,1,146,100.0,100.0,0,0,0.0,,
+Dubai World Trade Centre,3,2685,100.0,100.0,0,0,0.0,,
+Marsa Al Arab,1,0,100.0,100.0,0,0,0.0,,
+Dubai Marina (Phase 1),7,2315,100.0,100.0,0,0,0.0,,
+Meraas Bay & Residence,2,181,100.0,100.0,0,0,0.0,,
+Nashmi Development,5,2604,100.0,100.0,0,0,0.0,,
+Downtown Dubai Projects,1,269,100.0,100.0,0,0,0.0,,
+Nshama Development,2,587,100.0,100.0,0,0,0.0,,
+DAMAC Properties,2,0,100.0,100.0,0,0,0.0,,
+Jumeirah Islands,1,0,100.0,100.0,0,0,0.0,,
+City Walk Residential 1,5,855,100.0,100.0,0,0,0.0,,
+Abwab Real Estate,3,302,100.0,100.0,0,0,0.0,,
+One Za'abeel,1,486,100.0,100.0,0,0,0.0,,
+Marsa Al Arab Residences,1,31,100.0,100.0,0,0,0.0,,
+Limitless,3,1252,100.0,100.0,0,0,0.0,,
+Creek Heights Real Estate,1,0,100.0,100.0,0,0,0.0,,
+DMCC Business Park,1,418,100.0,100.0,0,0,0.0,,
+Dubai Investment Real Estate,3,1255,100.0,100.0,0,0,0.0,,
+Rove Hospitality,1,517,100.0,100.0,0,0,0.0,,
+Meydan City Corporation,6,936,83.3,99.7,1,0,0.2,,
+Dubai Industrial City,4,138,75.0,75.0,0,0,0.0,,
+Jumeirah Bay,2,31,50.0,61.5,0,0,0.0,,
+Park 1,5,3284,40.0,59.6,0,0,0.0,,
+DEVCO Real Estate Development,2,513,50.0,94.5,1,54,0.5,,
+Culture Village,5,669,40.0,44.2,0,0,0.0,,
+Crystal Three,1,0,0.0,67.0,0,0,0.0,,
+Dubai South Properties DWC,4,305,25.0,25.0,0,0,0.0,,
+Desert Falcon Real Estate Development,1,0,0.0,42.0,0,0,0.0,,
+Harbour Real Estate,2,976,0.0,18.0,0,0,0.0,,
+DAMAC CSL Investment,1,414,0.0,13.0,0,0,0.0,,
+MAS Real Estate Development,1,242,0.0,7.0,0,0,0.0,,
+Za'abeel Square,1,1733,0.0,5.0,0,0,0.0,,
+Dubai Harbour Community,4,1315,0.0,4.8,0,0,0.0,,
+Eden Hills,1,0,0.0,2.0,0,0,0.0,,
+The World,4,1383,0.0,76.0,3,1383,0.8,,
+DWTC Emaar,1,1004,0.0,1.0,0,0,0.0,,
+DHRE 2 BTS (Dubai Holding),5,889,0.0,0.4,0,0,0.0,,
+Ellington Karma Development,1,743,0.0,0.0,0,0,0.0,,
+HRE Real Estate Development,1,1429,0.0,0.0,0,0,0.0,,
+Dubai Peninsula,5,251,0.0,0.0,0,0,0.0,,
+Azizi Developments,1,0,0.0,0.0,0,0,0.0,,
+JGE Real Estate,2,0,0.0,0.0,0,0,0.0,,
+Arada Developments,1,546,0.0,0.0,0,0,0.0,,
+Dar Global Luxury Real Estate Development,1,574,0.0,0.0,0,0,0.0,,
+Seven Mayfair Real Estate Development,1,473,0.0,0.0,0,0,0.0,,
+Expo City Real Estate Development,8,1952,0.0,24.4,2,470,0.2,,
+Dubai Golf City,1,8,0.0,83.0,1,8,1.0,,
+Ilyas & Mustafa Galadari Real Estate,2,1628,0.0,12.0,1,0,0.5,,
+Emaar Bawadi,2,576,0.0,23.0,2,576,1.0,,

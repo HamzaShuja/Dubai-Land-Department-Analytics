@@ -62,7 +62,8 @@ def test_overdue_watchlist(projects):
     assert wl["zombie_units"] <= wl["overdue_units"]
     w = wl["watchlist"]
     assert (w.loc[w["is_zombie"], "percent_completed"] < wl["threshold"]).all()
-    assert (w["months_overdue"] > 0).all()
+    # A project overdue by a day rounds to 0.0 months - allow it.
+    assert (w["months_overdue"] >= 0).all()
 
 
 def test_developer_reliability(projects):

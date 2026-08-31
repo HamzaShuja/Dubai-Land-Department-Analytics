@@ -1,0 +1,26 @@
+{
+  "name": "Dubai RE Analytics",
+  "dataColors": ["#1B7A52", "#2E9E6B", "#57B98A", "#86D0AC", "#C4562A", "#E3B341", "#6B7785", "#16242B"],
+  "background": "#FFFFFF",
+  "foreground": "#16242B",
+  "tableAccent": "#1B7A52",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E9EDF0" } }, "radius": 12 }],
+        "title": [{ "fontColor": { "solid": { "color": "#16242B" } }, "fontSize": 12, "bold": true }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F4F6F8" } }, "transparency": 0 }]
+      }
+    }
+  },
+  "textClasses": {
+    "title": { "fontFace": "Segoe UI Semibold", "color": "#16242B" },
+    "callout": { "fontFace": "Segoe UI", "color": "#1B7A52" },
+    "label": { "fontFace": "Segoe UI", "color": "#6B7785" }
+  }
+}

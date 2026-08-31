@@ -197,7 +197,7 @@ stays on XLSX.
 │   └── reporting/           # weekly PDF report
 ├── api/main.py              # FastAPI /predict (+ SHAP) and /health
 ├── dashboard/               # app.py (navigation), home.py, style.py, bootstrap.py, pages/
-├── tests/                   # pytest suite (48 tests) ingestion→API→metrics
+├── tests/                   # pytest suite (52 tests) ingestion→API→metrics
 ├── input/                   # source Dubai Pulse / DLD workbooks
 ├── .streamlit/config.toml   # theme
 ├── Dockerfile, docker-compose.yml
@@ -209,14 +209,33 @@ stays on XLSX.
 ## Testing
 
 ```bash
-pytest                       # 48 tests across ingestion, validation, cleaning,
+pytest                       # 52 tests across ingestion, validation, cleaning,
                              # DB load, analysis, market-intelligence, models,
-                             # pipeline, reporting, and the API
+                             # pipeline, reporting, the API, and the Power BI export
 ```
 
 Database tests use the configured PostgreSQL (the GitHub Actions Postgres
 service) and fall back to an ephemeral local Postgres otherwise. CI runs the full
 suite with coverage on every push.
+
+---
+
+## Power BI edition
+
+`powerbi/` contains everything needed to assemble the same intelligence as a
+professional Power BI dashboard in about an hour:
+
+- `python -m realestate.powerbi_export` regenerates `powerbi/data/` - an
+  analytics-ready star schema (FactTransactions, FactProjects, DimDeveloper,
+  DimArea, DimDate) with English values and pre-computed delivery flags,
+  reliability scores and cohort benchmarks.
+- `measures.dax` - the full measure set (sales value, mortgage-to-sales
+  ratio, pipeline, at-risk share, overdue/stalled, delivery rate).
+- `theme.json` - report theme matching the platform's design system.
+- `github_powerquery.m` - load tables directly from this repo so Refresh
+  always pulls the latest data.
+- `BUILD_GUIDE.md` - page-by-page assembly instructions (Executive Overview,
+  Market Trends, Supply & Delivery Risk, Developer Intelligence, Geography).
 
 ---
 
